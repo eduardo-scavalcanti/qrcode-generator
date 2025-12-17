@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QR Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-2">
+            Gerador de QR Code
+        </h1>
+        
+        <p class="text-sm text-gray-500 text-center mb-6">
+            Cole uma URL e gere seu QR Code instantaneamente
+        </p>
+
+        <form method="POST" class="flex gap-2">
+            <input type="text" name="url" placeholder="https://exemplo.com" required
+            class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            <button type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                Gerar QR Code
+            </button>
+        </form>
+
+        {% if qr_code %}
+        <div class="mt-8 border-t pt-6 text-center">
+
+            <p class="text-sm text-gray-600 mb-4">
+                Seu QR Code está pronto:
+            </p>
+            
+            <img src="{{ qr_code }}" alt="QR Code" class="mx-auto mb-4 w-80 h-80">
+
+            <a href="{{ url_for('download_qr', filename=filename) }}"
+            class="inline-block px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm font-medium">
+                Baixar QR Code
+            </a>
+
+        </div>
+        {% endif %}
+
+        <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    </div>
+</body>
+</html>
